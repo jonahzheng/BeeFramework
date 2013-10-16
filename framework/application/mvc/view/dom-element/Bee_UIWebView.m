@@ -106,9 +106,36 @@ DEF_SIGNAL( DID_LOAD_CANCELLED )	// 加载取消
 		}
 		
 		_inited = YES;
-		
 		[self load];
+        
 	}
+}
+//设置垂直滚动条是否隐藏
+- (void) setVScrollBarVisible:(BOOL)opt
+{
+    if (opt) {
+        for (UIView *aView in [self subviews])
+        {
+            if ([aView isKindOfClass:[UIScrollView class]])
+            {
+                [(UIScrollView *)aView setShowsVerticalScrollIndicator:NO];
+            }
+        }
+    }
+}
+
+//设置水平滚动条是否隐藏
+- (void) setHScrollBarVisible:(BOOL)opt
+{
+    if (opt) {
+        for (UIView *aView in [self subviews])
+        {
+            if ([aView isKindOfClass:[UIScrollView class]])
+            {
+                [(UIScrollView *)aView setShowsHorizontalScrollIndicator:NO];
+            }
+        }
+    }
 }
 
 - (void)setHtml:(NSString *)string
@@ -130,11 +157,12 @@ DEF_SIGNAL( DID_LOAD_CANCELLED )	// 加载取消
 	NSString * extension = [path pathExtension];
 	NSString * fullName = [path substringToIndex:(path.length - extension.length - 1)];
 
+    NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	NSString * path2 = [[NSBundle mainBundle] pathForResource:fullName ofType:extension];
 	NSData * data = [NSData dataWithContentsOfFile:path2];
 	if ( data )
 	{
-		[self loadData:data MIMEType:@"text/html" textEncodingName:@"UTF8" baseURL:nil];
+		[self loadData:data MIMEType:@"text/html" textEncodingName:@"UTF8" baseURL:baseURL];
 	}
 }
 

@@ -56,6 +56,8 @@ AS_SIGNAL( DID_LOAD_CANCELLED )		// 加载取消
 @property (nonatomic, assign) NSString * file;
 @property (nonatomic, assign) NSString * resource;
 @property (nonatomic, assign) NSString * url;
+- (void) setVScrollBarVisible:(BOOL)opt;
+- (void) setHScrollBarVisible:(BOOL)opt;
 
 @end
 
